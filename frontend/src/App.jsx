@@ -456,9 +456,6 @@ export default function App() {
                 {t('env.import') || '导入'}
               </Button>
             )}
-            <Button type="text" icon={<ConsoleSqlOutlined />} onClick={() => setTerminalOpen(true)}>
-              {t('app.terminal')}
-            </Button>
             <Button type="text" icon={activeTaskIds.length > 0 ? <LoadingOutlined spin /> : <ToolOutlined />} onClick={() => setDrawerOpen(true)}>
               {t('app.tasks')}
               {activeTaskIds.length > 0 && <span style={{ marginLeft: 4 }}>({activeTaskIds.length})</span>}
@@ -676,6 +673,10 @@ export default function App() {
           <SettingsModal
             open={settingsOpen}
             onClose={() => setSettingsOpen(false)}
+            onOpenTerminal={() => {
+              setTerminalOpen(true);
+              setSettingsOpen(false);
+            }}
             onSaved={() => {
               api.checkCondaStatus().then((res) => {
                 setCondaReady(!!res.data.ready);

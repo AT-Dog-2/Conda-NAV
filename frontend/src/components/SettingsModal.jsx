@@ -3,13 +3,14 @@ import { Modal, Form, Input, Button, Space, Select, Switch, InputNumber, message
 import {
   SettingOutlined, SearchOutlined, CheckCircleOutlined,
   CloseCircleOutlined, FolderOpenOutlined, FileTextOutlined,
+  ConsoleSqlOutlined,
 } from '@ant-design/icons';
 import { useI18n } from '../i18n/context';
 import api from '../api';
 
 const { Text } = Typography;
 
-export default function SettingsModal({ open, onClose, onSaved }) {
+export default function SettingsModal({ open, onClose, onSaved, onOpenTerminal }) {
   const { t, locale, setLocale } = useI18n();
   const [condaPath, setCondaPath] = useState('');
   const [mambaPath, setMambaPath] = useState('');
@@ -147,6 +148,12 @@ export default function SettingsModal({ open, onClose, onSaved }) {
             { label: t('settings.en'), value: 'en-US' },
           ]}
         />
+      </div>
+
+      <div style={{ marginBottom: 16, textAlign: 'right' }}>
+        <Button icon={<ConsoleSqlOutlined />} onClick={onOpenTerminal} size="small">
+          {t('app.terminal')}
+        </Button>
       </div>
 
       <Divider style={{ margin: '12px 0' }} />
