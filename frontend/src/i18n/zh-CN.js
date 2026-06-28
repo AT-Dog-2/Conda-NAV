@@ -156,7 +156,7 @@ export default {
     calcEnvSizeDesc: '开启后在环境列表自动计算并显示每个环境的磁盘大小（需遍历目录，大环境可能较慢）',
     calcTimeout: '计算超时',
     calcTimeoutUnit: '秒',
-    calcTimeoutHint: '超过该时间后将停止等待并返回结果（后台会继续计算，下次查询即可获取）',
+    calcTimeoutHint: '超过该时间后将中止',
     advanced: '高级设置',
     systemTools: '系统工具',
   },

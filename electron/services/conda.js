@@ -1,4 +1,4 @@
-const { spawn, exec } = require('child_process');
+const { spawn, exec, execFile } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -757,11 +757,31 @@ function formatSize(bytes) {
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
 
-/** 执行任意 conda 命令（用于常用指令功能） */
+function parseCommandArgs(command) {
+  const args = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < command.length; i++) {
+    const char = command[i];
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ' ' && !inQuotes) {
+      if (current) {
+        args.push(current);
+        current = '';
+      }
+    } else {
+      current += char;
+    }
+  }
+  if (current) args.push(current);
+  return args;
+}
+
 async function runCommand(condaExe, command) {
   return new Promise((resolve) => {
-    const fullCmd = `${condaExe} ${command}`;
-    exec(fullCmd, { timeout: 30000 }, (error, stdout, stderr) => {
+    const args = parseCommandArgs(command);
+    execFile(condaExe, args, { timeout: 30000 }, (error, stdout, stderr) => {
       if (error) {
         resolve(stderr || error.message);
       } else {
