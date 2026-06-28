@@ -1,0 +1,22 @@
+# Node
+node_modules/
+dist/
+
+# Electron
+release/
+
+# Legacy / runtime
+backend/
+*.db
+debug.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logo
+icon.ico

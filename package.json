@@ -1,0 +1,63 @@
+{
+  "name": "conda-nav",
+  "version": "1.0.0",
+  "description": "Conda 环境管理桌面应用",
+  "main": "electron/main.js",
+  "author": "AT-Dog-2",
+  "license": "MIT",
+  "scripts": {
+    "install:all": "npm run install:fe && npm run install:electron",
+    "install:fe": "cd frontend && npm install",
+    "install:electron": "npm install",
+    "dev": "concurrently -n fe,app -c green,yellow \"npm run dev:fe\" \"npm run dev:electron\"",
+    "dev:fe": "cd frontend && npm run dev",
+    "dev:electron": "electron .",
+    "build": "npm run build:fe && npm run build:electron",
+    "build:fe": "cd frontend && npm run build",
+    "build:electron": "electron-builder",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^42.0.0",
+    "electron-builder": "^24.9.1",
+    "sharp": "^0.35.2",
+    "to-ico": "^1.1.5"
+  },
+  "build": {
+    "appId": "com.atdog.conda-nav",
+    "productName": "Conda NAV",
+    "icon": "icon.ico",
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*",
+      "icon.ico"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Conda NAV"
+    }
+  }
+}
